@@ -2,21 +2,20 @@
 
 @section('content')
     <div class="container mx-auto p-4">
-        <h1 class="text-4xl font-bold mb-4">Welcome to My Laravel App</h1>
-        <p class="text-lg mb-6">This is a simple application built with Laravel and Tailwind CSS.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-semibold mb-2">Feature 1</h2>
-                <p class="text-gray-700">Description of feature 1.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-semibold mb-2">Feature 2</h2>
-                <p class="text-gray-700">Description of feature 2.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-semibold mb-2">Feature 3</h2>
-                <p class="text-gray-700">Description of feature 3.</p>
-            </div>
+        <div class="post_container flex flex-col gap-8">
+            @foreach ($posts as $post)
+                <div class="mb-8 border-b-2 border-gray-300 pb-6">
+                    <h2
+                        class="text-2xl font-semibold text-gray-900 hover:text-indigo-600 transition duration-300 ease-in-out">
+                        {{ $post->title }}</h2>
+                    <div class="time-and-author flex items-center mt-3 gap-4 text-sm text-gray-500">
+                        <p class="font-medium text-gray-700">By <span
+                                class="font-semibold text-indigo-600">{{ $post->user_name }}</span></p>
+                        <p class="text-gray-400">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</p>
+                    </div>
+                    <p class="text-gray-700 mt-4 text-base leading-relaxed">{{ $post->content }}</p>
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection
